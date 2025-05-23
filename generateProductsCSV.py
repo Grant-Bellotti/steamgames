@@ -12,7 +12,7 @@ def appendFile(fileName, data):
     return
 
 def main():
-    csvFileName = "(5/23/25)allproducts.csv"
+    csvFileName = "(5-23-25)_allproducts.csv"
 
     # Reset the CSV file when the program starts
     with open(csvFileName, "w", encoding="utf-8", newline='') as csvfile:
