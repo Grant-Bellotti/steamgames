@@ -28,11 +28,14 @@ def main():
     count = 0
     csvData = []
 
+    productAmount = len(allProductData['applist']['apps'])
+    print(f'There are {productAmount} products. The estimated time is {1.5 * productAmount} seconds, {(1.5 * productAmount) / 60} minutes, {(1.5 * productAmount) / 60 / 60} hours, and {(1.5 * productAmount) / 60 / 60/ 24} days.')
+
     # For each product, parse data and add to file
     for product in allProductData['applist']['apps']:
         appID = str(product['appid'])
 
-        while count < len(allProductData['applist']['apps']):
+        while count < productAmount:
             try:
                 # Get main steam page data
                 with urllib.request.urlopen(f'https://store.steampowered.com/api/appdetails?appids={appID}') as url:
