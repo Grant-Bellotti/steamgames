@@ -64,7 +64,7 @@ def nicePrint(data):
 
     print('─' * 60)
 
-def generatePieChart(fileName, column):
+def extractTagsAndGenres(fileName, column):
     columnItems = set()
 
     with open(fileName, mode='r', encoding="utf-8", newline='') as file:
@@ -115,8 +115,8 @@ def main():
     # nicePrint(bestGames)
     # nicePrint(bestProducts)
 
-    generatePieChart(gameFileName, 'genres')
-    generatePieChart(gameFileName, 'tags')
+    extractTagsAndGenres(gameFileName, 'genres')
+    extractTagsAndGenres(gameFileName, 'tags')
 
 if __name__ == "__main__":
     main()
