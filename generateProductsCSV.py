@@ -1,8 +1,12 @@
 import urllib.request, json
 import csv
 from time import sleep
+import os
+from dotenv import load_dotenv
 
-KEY = '35D7A5AF14BC52B5C3DE101B5737A903'
+load_dotenv()
+
+KEY = os.getenv('KEY')
 
 def appendFile(fileName, data):
     with open(fileName, "a", encoding="utf-8", newline='') as csvfile:
@@ -12,7 +16,7 @@ def appendFile(fileName, data):
     return
 
 def main():
-    csvFileName = "(5-23-25)_allproducts.csv"
+    csvFileName = "(5-29-25)_allproducts.csv"
 
     # Reset the CSV file when the program starts
     with open(csvFileName, "w", encoding="utf-8", newline='') as csvfile:
@@ -151,6 +155,8 @@ def main():
     # Finish writing to csv file
     if csvData:
         appendFile(csvFileName, csvData)
+
+    print("Product scraping complete!")
 
 if __name__ == "__main__":
     main()

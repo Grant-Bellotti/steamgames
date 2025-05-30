@@ -1,5 +1,3 @@
 screen -S <session> - start a screen (session for steam is steamgames)
 ctrl a and then d to detatch
 screen -r <session> - go back to screen
-
-started 12/26/2024 at 2:50pm
