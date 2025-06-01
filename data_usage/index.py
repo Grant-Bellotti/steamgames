@@ -102,11 +102,44 @@ def extractTagsAndGenres(fileName, column):
 
     englishItems.sort()
 
-    print(f'--------- {column} ---------')
-    print (englishItems)
-    print('------------------')
+    return englishItems
 
-            
+def countGenresAndTags(fileName, data, columnName):
+    counts = {item: 0 for item in data}
+
+    with open(fileName, mode='r', encoding="utf-8", newline='') as file:
+        csvReader = csv.DictReader(file)
+        for row in csvReader:
+            for item in data:
+                if item in row[columnName]:
+                    counts[item] += 1
+
+    topSorted = sorted(counts.items(), key=lambda x: x[1], reverse=True)
+
+    print(topSorted[:5])
+
+def printGamesByYear(fileName):
+    yearDict = {item: 0 for item in (i for i in range(2025, 1996, -1))}
+    yearDict['Coming Soon'] = 0
+
+    with open(fileName, mode='r', encoding="utf-8", newline='') as file:
+        csvReader = csv.DictReader(file)
+        for row in csvReader:
+            date = row['release-date']
+
+            if date == "Coming Soon":
+                yearDict["Coming Soon"] += 1
+
+            elif date[-2:].isnumeric():
+                yearBeginning = '20'
+                if int(date[-2:]) > 25:
+                    yearBeginning = '19'
+
+                if int(yearBeginning + date[-2:]) in yearDict:
+                    yearDict[int(yearBeginning + date[-2:])] += 1
+    
+    print(yearDict)
+
 
 def main():
     # bestGames = getHighestRatedByFile(gameFileName)
@@ -115,8 +148,14 @@ def main():
     # nicePrint(bestGames)
     # nicePrint(bestProducts)
 
-    extractTagsAndGenres(gameFileName, 'genres')
-    extractTagsAndGenres(gameFileName, 'tags')
+    # for i in ['genres', 'tags']:
+    #     data = extractTagsAndGenres(gameFileName, i)
+    #     print(f'---------------------{i}---------------------')
+    #     print(data)
+    #     print('------------------------------------------')
+    #     countGenresAndTags(gameFileName, data, i)
+    # extractTagsAndGenres(gameFileName, 'tags')
+    printGamesByYear(gameFileName)
 
 if __name__ == "__main__":
     main()
