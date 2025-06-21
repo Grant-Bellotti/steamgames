@@ -89,8 +89,8 @@ def extractTagsAndGenres(fileName, column):
         addWord = True
         for word in columnItems[i].replace('-', ' ').split():
             if not d.check(word):
-                for exception in ['&', 'rpg', 'vr', '3d', '2d', 'pvp', 'pve', 'lgbt', 'em']:
-                    if exception not in word.lower() and not isinstance(word, (int)):
+                for exception in ['&', 'rpg', 'vr', '3d', '2d', 'pvp', 'pve', 'lgbt', 'em', 'linux']:
+                    if exception not in word.lower() and not isinstance(word, (int)):   
                         addWord = False
                         break
 
@@ -116,7 +116,10 @@ def countGenresAndTags(fileName, data, columnName):
 
     topSorted = sorted(counts.items(), key=lambda x: x[1], reverse=True)
 
-    print(topSorted[:5])
+    # print(topSorted[:5])
+    for genre, count in topSorted:
+        print(f"{genre},{count}")
+    # print(topSorted)
 
 def printGamesByYear(fileName):
     yearDict = {item: 0 for item in (i for i in range(2025, 1996, -1))}
@@ -138,7 +141,9 @@ def printGamesByYear(fileName):
                 if int(yearBeginning + date[-2:]) in yearDict:
                     yearDict[int(yearBeginning + date[-2:])] += 1
     
-    print(yearDict)
+    for year, count in yearDict.items():
+        print(f"{year},{count}")
+    # print(yearDict)
 
 
 def main():
@@ -148,14 +153,14 @@ def main():
     # nicePrint(bestGames)
     # nicePrint(bestProducts)
 
-    # for i in ['genres', 'tags']:
-    #     data = extractTagsAndGenres(gameFileName, i)
-    #     print(f'---------------------{i}---------------------')
-    #     print(data)
-    #     print('------------------------------------------')
-    #     countGenresAndTags(gameFileName, data, i)
+    for i in ['platforms']:
+        data = extractTagsAndGenres(gameFileName, i)
+        print(f'---------------------{i}---------------------')
+        print(data)
+        print('------------------------------------------')
+        countGenresAndTags(gameFileName, data, i)
     # extractTagsAndGenres(gameFileName, 'tags')
-    printGamesByYear(gameFileName)
+    # printGamesByYear(gameFileName)
 
 if __name__ == "__main__":
     main()
